@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01CFE471-B146-4B76-8D97-99B0FBC62501}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SQLDocGenerator</RootNamespace>
+    <AssemblyName>SQLDocGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Utility, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Management.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllColumnsHelper.cs" />
+    <Compile Include="ColumnSetColumnsHelper.cs" />
+    <Compile Include="ColumnsHelper.cs" />
+    <Compile Include="DatabasesHelper.cs" />
+    <Compile Include="DataSourceInformationHelper.cs" />
+    <Compile Include="DataTypesHelper.cs" />
+    <Compile Include="ForeignKeysHelper.cs" />
+    <Compile Include="FxCopRulesWriter.cs" />
+    <Compile Include="Helper\CHMWriter\HHCWriter.cs" />
+    <Compile Include="Helper\CHMWriter\HHKWriter.cs" />
+    <Compile Include="Helper\CHMWriter\HHPWriter.cs" />
+    <Compile Include="Helper\CHMWriter\HTMLFile.cs" />
+    <Compile Include="HTMLTransfomer.cs" />
+    <Compile Include="IndexColumnsHelper.cs" />
+    <Compile Include="IndexesHelper.cs" />
+    <Compile Include="InstanceInformationHelper.cs" />
+    <Compile Include="ProcedureParametersHelper.cs" />
+    <Compile Include="ProceduresHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+    <Compile Include="ReservedWordsHelper.cs" />
+    <Compile Include="RestrictionsHelper.cs" />
+    <Compile Include="SMOHelper.cs" />
+    <Compile Include="SQLDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQLDoc.Designer.cs">
+      <DependentUpon>SQLDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StructuredTypeMembersHelper.cs" />
+    <Compile Include="TablesHelper.cs" />
+    <Compile Include="UserDefinedTypesHelper.cs" />
+    <Compile Include="UsersHelper.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="ViewColumnsHelper.cs" />
+    <Compile Include="ViewsHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="mssccprj.scc" />
+    <None Include="Properties\Settings.settings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Columns.htm" />
+    <Content Include="Columns.xml" />
+    <Content Include="TableDetails.htm" />
+    <Content Include="TableList.xml" />
+    <Content Include="telerikCSS.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

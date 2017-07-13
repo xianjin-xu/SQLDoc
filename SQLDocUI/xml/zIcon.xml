@@ -1,0 +1,38 @@
+<NewDataSet>
+  <TableProperties>
+    <NAME>Description</NAME>
+    <VALUE />
+  </TableProperties>
+  <TableProperties>
+    <NAME>Name</NAME>
+    <VALUE>AccountNumber</VALUE>
+  </TableProperties>
+  <TableProperties>
+    <NAME>Schema</NAME>
+    <VALUE>dbo</VALUE>
+  </TableProperties>
+  <TableProperties>
+    <NAME>SystemType</NAME>
+    <VALUE>nvarchar</VALUE>
+  </TableProperties>
+  <TableProperties>
+    <NAME>Nullable</NAME>
+    <VALUE>True</VALUE>
+  </TableProperties>
+  <TableProperties>
+    <NAME>Rule</NAME>
+    <VALUE />
+  </TableProperties>
+  <TableProperties>
+    <NAME>Default</NAME>
+    <VALUE />
+  </TableProperties>
+  <ColumnsDefinedOn>
+    <Name>AccountNumber</Name>
+    <Parent>[AdventureWorks2008]</Parent>
+    <Description />
+  </ColumnsDefinedOn>
+  <SQL>
+    <SQL>CREATE TYPE [dbo].[AccountNumber] FROM [nvarchar](15) NULL</SQL>
+  </SQL>
+</NewDataSet>
