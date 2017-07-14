@@ -474,6 +474,7 @@
     </Content>
     <Content Include="xsl\Databases.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="xsl\DataSourceInformation.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -500,6 +501,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="xsl\Restrictions.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xsl\FunctionSplitToBR.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="xsl\TableDetails.xsl">

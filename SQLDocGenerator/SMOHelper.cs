@@ -195,6 +195,7 @@ namespace SQLDocGenerator
             }
             private static void CreateTriggersSchema()
             {
+                triggers.Columns.Clear();
                 triggers.Columns.Add(new DataColumn("Name", typeof(string)));
                 //triggers.Columns.Add(new DataColumn("Schema", typeof(string)));
                 triggers.Columns.Add(new DataColumn("Description", typeof(string)));
@@ -394,6 +395,7 @@ namespace SQLDocGenerator
             }
             private static void CreateUserDefinedDataTypesSchema()
             {
+                userDefinedDataTypes.Columns.Clear();
                 userDefinedDataTypes.Columns.Add(new DataColumn("Name", typeof(string)));
                 userDefinedDataTypes.Columns.Add(new DataColumn("Schema", typeof(string)));
                 userDefinedDataTypes.Columns.Add(new DataColumn("Parent", typeof(string)));

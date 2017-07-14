@@ -369,6 +369,13 @@ namespace SQLDocUI
 
         private void btnFetch_Click(object sender, EventArgs e)
         {
+            this.listViewTables.Clear();
+            this.listViewFunctions.Clear();
+            this.listViewProcedures.Clear();
+            this.listViewTriggers.Clear();
+            this.listviewUDDT.Clear();
+            this.listViewViews.Clear();
+
             btnFetch.Enabled = false;
             txtFileName.Text = "C:\\" + ddlDatabase.Text + ".chm";
             ddlFormat.SelectedIndex = 0;

@@ -20,6 +20,7 @@ namespace SQLDocGenerator
             Boolean statisticsEnabled = Utility.DBConnection.StatisticsEnabled;
             String workstationId = Utility.DBConnection.WorkstationId;
 
+            instanceInformation.Columns.Clear();
             instanceInformation.Columns.Add("dataSource", dataSource.GetType());
             instanceInformation.Columns.Add("packetSize", packetSize.GetType());
             instanceInformation.Columns.Add("serverVersion", serverVersion.GetType());

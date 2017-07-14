@@ -2,6 +2,7 @@
   <!ENTITY nbsp "&#160;">
 ]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:import href="FunctionSplitToBR.xsl" />
   <xsl:template match = "/" >
     <html>
       <head>
@@ -39,7 +40,22 @@
               <hr class="RadGrid RadGrid_Office2007" />
               <font style="font-weight:normal" size="2px">
                 <xsl:if test="//NewDataSet/TableProperties/NAME='Description'">
-                  <xsl:value-of select="//NewDataSet/TableProperties/VALUE"/>
+                  <xsl:variable name="TABLE_DESCRIPTION_RESULT" select="//NewDataSet/TableProperties/VALUE" />
+                  <xsl:if test="contains($TABLE_DESCRIPTION_RESULT,'|')">
+                    <xsl:call-template name="SplitToBR">
+                      <xsl:with-param name="InputData" select="$TABLE_DESCRIPTION_RESULT" />
+                    </xsl:call-template>
+                  </xsl:if>
+                  <xsl:if test="not(contains($TABLE_DESCRIPTION_RESULT,'|'))">
+                    <xsl:choose>
+                      <xsl:when test="string-length($TABLE_DESCRIPTION_RESULT) > 0">
+                        <xsl:value-of select="$TABLE_DESCRIPTION_RESULT"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        &nbsp;
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:if>
                 </xsl:if>
               </font>
               <br/>
@@ -92,13 +108,14 @@
                       <th class="GridHeader_Office2007" width="10%">Name</th>
                       <th class="GridHeader_Office2007" width="35%">Description</th>
                       <th class="GridHeader_Office2007" width="07%">Ordinal Position</th>
+                      <th class="GridHeader_Office2007" width="04%">ISPK</th>
                       <th class="GridHeader_Office2007" width="04%">Nullable</th>
                       <th class="GridHeader_Office2007" width="06%">Data Type</th>
                       <th class="GridHeader_Office2007" width="06%">Max Length</th>
                       <th class="GridHeader_Office2007" width="06%">Octet Length</th>
-                      <th class="GridHeader_Office2007" width="05%">Sparse</th>
-                      <th class="GridHeader_Office2007" width="05%">Column Set</th>
-                      <th class="GridHeader_Office2007" width="05%">Filestream</th>
+                      <th class="GridHeader_Office2007" width="05%" style="display:none;">Sparse</th>
+                      <th class="GridHeader_Office2007" width="05%" style="display:none;">Column Set</th>
+                      <th class="GridHeader_Office2007" width="05%" style="display:none;">Filestream</th>
                       <th class="GridHeader_Office2007" width="05%">DefaultValue</th>
                     </tr>
                   </thead>
@@ -129,6 +146,16 @@
                           <xsl:choose>
                             <xsl:when test="string-length(ORDINAL_POSITION) > 0">
                               <xsl:value-of select="ORDINAL_POSITION"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              &nbsp;
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </td>
+                        <td>
+                          <xsl:choose>
+                            <xsl:when test="string-length(ISPK) > 0">
+                              <xsl:value-of select="ISPK"/>
                             </xsl:when>
                             <xsl:otherwise>
                               &nbsp;
@@ -175,7 +202,7 @@
                             </xsl:otherwise>
                           </xsl:choose>
                         </td>
-                        <td>
+                        <td style="display:none;">
                           <xsl:choose>
                             <xsl:when test="string-length(IS_SPARSE) > 0">
                               <xsl:value-of select="IS_SPARSE"/>
@@ -185,7 +212,7 @@
                             </xsl:otherwise>
                           </xsl:choose>
                         </td>
-                        <td>
+                        <td style="display:none;">
                           <xsl:choose>
                             <xsl:when test="string-length(IS_COLUMN_SET) > 0">
                               <xsl:value-of select="IS_COLUMN_SET"/>
@@ -195,7 +222,7 @@
                             </xsl:otherwise>
                           </xsl:choose>
                         </td>
-                        <td>
+                        <td style="display:none;">
                           <xsl:choose>
                             <xsl:when test="string-length(IS_FILESTREAM) > 0">
                               <xsl:value-of select="IS_FILESTREAM"/>

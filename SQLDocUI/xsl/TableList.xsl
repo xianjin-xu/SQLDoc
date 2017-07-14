@@ -2,8 +2,8 @@
   <!ENTITY nbsp "&#160;">
 ]>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:import href="FunctionSplitToBR.xsl" />
   <xsl:template match = "/" >
-
     <html>
       <head>
         <title>List of tables</title>
@@ -78,7 +78,14 @@
                             </xsl:choose>
                           </td>
                           <td>
-                            <xsl:choose>
+                            <xsl:variable name="TABLE_DESCRIPTION_RESULT" select="TABLE_DESCRIPTION" />  
+                            <xsl:if test="contains($TABLE_DESCRIPTION_RESULT,'|')">
+                                <xsl:call-template name="SplitToBR">  
+                                    <xsl:with-param name="InputData" select="$TABLE_DESCRIPTION_RESULT" />
+                                </xsl:call-template>
+                            </xsl:if>  
+                            <xsl:if test="not(contains($TABLE_DESCRIPTION_RESULT,'|'))">
+                              <xsl:choose>
                               <xsl:when test="string-length(TABLE_DESCRIPTION) > 0">
                                 <xsl:value-of select="TABLE_DESCRIPTION"/>
                               </xsl:when>
@@ -86,6 +93,7 @@
                                 &nbsp;
                               </xsl:otherwise>
                             </xsl:choose>
+                            </xsl:if>
                           </td>
                           <td align="right">
                             <xsl:choose>

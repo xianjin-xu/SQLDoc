@@ -15,6 +15,7 @@ namespace SQLDocGenerator
         public static void GetColumns()
         {
             columns = Utility.DBConnection.GetSchema("Columns");
+            IndexColumnsHelper.GetIndexColumns();
             //Utility.PrintDatatable(columns);
         }
         public static void WriteColumns()

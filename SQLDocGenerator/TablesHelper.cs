@@ -17,6 +17,7 @@ namespace SQLDocGenerator
         private static DataTable tables = new DataTable("Tables");
         private static DataTable tableDescription = new DataTable("TableDescription");
         private static DataTable columnsDescription = new DataTable("ColumnsDescription");
+        private static DataTable tablePKs = new DataTable("TablePKs");
 
         public static DataTable Tables { get { return tables; } }
         public static DataTable TableDescription { get { return tableDescription; } }
@@ -36,6 +37,7 @@ namespace SQLDocGenerator
 
             GetSchemas();
             GetTableDescription();
+            GetAllTablePrimaryKeys();
             GetColumnsDescription();
             GetTablesSpaceUsed();
             GetTableColumnCount();
@@ -97,6 +99,27 @@ namespace SQLDocGenerator
                     row["TABLE_DESCRIPTION"] = rows[0]["VALUE"];
             }
         }
+
+        private static void GetAllTablePrimaryKeys()
+        {
+            string query = string.Empty;
+            SqlCommand cmd;
+            SqlDataAdapter adapter;
+            DataSet ds = new DataSet("TablePKs");
+
+            query =@"SELECT d.id as objId, d.name as Table_Name, a.colid, a.name as PKName
+              FROM syscolumns a inner join sysobjects d on a.id = d.id
+              where exists(SELECT 1 FROM sysobjects where xtype = 'PK' and parent_obj = a.id and name in (
+                SELECT name FROM sysindexes WHERE indid in(
+             SELECT indid FROM sysindexkeys WHERE id = a.id AND colid = a.colid
+              )))";
+
+            cmd = new SqlCommand(query, Utility.DBConnection);
+            adapter = new SqlDataAdapter(query, Utility.DBConnection);
+            adapter.Fill(ds, "TablePKs");
+            tablePKs = ds.Tables["TablePKs"];
+        }
+
         private static void GetColumnsDescription()
         {
             string query = string.Empty;
@@ -122,6 +145,7 @@ namespace SQLDocGenerator
         private static void JoinColumnsDescription()
         {
             ColumnsHelper.Columns.Columns.Add("COLUMN_DESCRIPTION", typeof(String));
+            var pkcolumn = ColumnsHelper.Columns.Columns.Add("ISPK", typeof(bool));
             Utility.PrintDatatable(columnsDescription);
 
             foreach (DataRow row in ColumnsHelper.Columns.Rows)
@@ -129,6 +153,12 @@ namespace SQLDocGenerator
                 DataRow[] rows = (columnsDescription.Select("TABLE_NAME = '" + row["TABLE_NAME"] + "' AND OBJNAME = '" + row["COLUMN_NAME"] + "'"));
                 if (rows.Length > 0)
                     row["COLUMN_DESCRIPTION"] = rows[0]["VALUE"];
+
+                rows = tablePKs.Select("Table_Name = '" + row["TABLE_NAME"] + "' AND PKName = '"+ row["COLUMN_NAME"] + "'");
+                if (rows.Length > 0)
+                {
+                    row["ISPK"] = true;
+                }
             }
         }
         private static void GetTablesSpaceUsed()
