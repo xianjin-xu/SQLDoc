@@ -254,9 +254,10 @@
                 <table class="MasterTable_Office2007" cellspacing="0"  style="width:100%;border-collapse:collapse;table-layout:auto;empty-cells:show;" id="ListOfTables" >
                   <thead>
                     <tr class="GridRow_Office2007">
-                      <th class="GridHeader_Office2007" width="55%">Name</th>
-                      <th class="GridHeader_Office2007" width="30%">Column</th>
+                      <th class="GridHeader_Office2007" width="35%">Name</th>
+                      <th class="GridHeader_Office2007" width="25%">Column</th>
                       <th class="GridHeader_Office2007" width="15%">Type</th>
+                      <th class="GridHeader_Office2007" width="30%">Description</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -279,6 +280,16 @@
                           <xsl:choose>
                             <xsl:when test="string-length(type_desc) > 0">
                               <xsl:value-of select="type_desc"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              &nbsp;
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </td>
+                        <td>
+                          <xsl:choose>
+                            <xsl:when test="string-length(Description) > 0">
+                              <xsl:value-of select="Description"/>
                             </xsl:when>
                             <xsl:otherwise>
                               &nbsp;
