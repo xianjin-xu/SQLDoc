@@ -33,6 +33,8 @@ namespace SQLDocGenerator
             //restrictions[3] = "BASE TABLE";   //table type 
 
             tables = Utility.DBConnection.GetSchema("Tables", restrictions);
+            tables.DefaultView.Sort = "TABLE_NAME ASC";
+            tables = tables.DefaultView.ToTable();
             //Utility.PrintDatatable(tables);
 
             GetSchemas();
@@ -254,6 +256,7 @@ namespace SQLDocGenerator
 
             DataSet ds = new DataSet("TableList");
             DataView dv = new DataView(tables);
+            dv.Sort = "TABLE_NAME ASC";
             dv.RowFilter = "TABLE_TYPE = 'BASE TABLE'";
             ds.Tables.Add(dv.ToTable());
 
