@@ -626,6 +626,7 @@ namespace SQLDocUI
 
         private void WriteMetaDataInXML()
         {
+            entireDatabase.Tables.Clear();
             entireDatabase.Tables.Add(InstanceInformationHelper.InstanceInformation.Copy());
             entireDatabase.Tables.Add(DataSourceInformationHelper.DataSourceInformation.Copy());
             entireDatabase.Tables.Add(DataTypesHelper.DataTypes.Copy());

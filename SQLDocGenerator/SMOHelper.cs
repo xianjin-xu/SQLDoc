@@ -79,7 +79,7 @@ namespace SQLDocGenerator
                 string htmFile = "TriggerList.htm";
 
                 DataSet ds = new DataSet("TriggerList");
-                ds.Tables.Add(triggers);
+                ds.Tables.Add(triggers.Copy());
 
                 File.WriteAllText(@"xml\" + xmlfile, ds.GetXml());
 

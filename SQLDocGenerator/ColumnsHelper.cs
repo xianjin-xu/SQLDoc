@@ -15,7 +15,8 @@ namespace SQLDocGenerator
         public static void GetColumns()
         {
             columns = Utility.DBConnection.GetSchema("Columns");
-            IndexColumnsHelper.GetIndexColumns();
+            columns.DefaultView.Sort = "TABLE_NAME ASC, ORDINAL_POSITION ASC";
+            columns = columns.DefaultView.ToTable();
             //Utility.PrintDatatable(columns);
         }
         public static void WriteColumns()
